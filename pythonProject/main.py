@@ -25,6 +25,12 @@ mp_hands = mp.solutions.hands
 
 hands = mp_hands.Hands()
 
+landmark_drawing_spec = mp_drawing.DrawingSpec(color=(0, 255, 0),
+                                               thickness=2,
+                                               circle_radius=5)
+connection_drawing_spec = mp_drawing.DrawingSpec(color=(255, 0, 0),
+                                                 thickness=2)
+
 cap = cv2.VideoCapture(0)
 
 while True:
@@ -37,11 +43,10 @@ while True:
 
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
-            mp_drawing.draw_landmarks(
-                image,
-                hand_landmarks,
-                mp_hands.HAND_CONNECTIONS)
-
+            # Use the custom drawing specifications
+            mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS,
+                                      landmark_drawing_spec,
+                                      connection_drawing_spec)
             if is_full_open_hand(hand_landmarks):
                 print(gesture_emoji_map['full_open_hand'])
             elif is_index_finger_up(hand_landmarks):

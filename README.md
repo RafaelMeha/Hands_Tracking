@@ -21,3 +21,10 @@ This project is a hand gesture recognition system built using OpenCV and MediaPi
 
 ### Installation
 Clone the repository:
+
+git clone https://github.com/your-username/hand-gesture-recognition.git
+
+Install the required libraries:
+pip install opencv-python
+pip install mediapipe
+

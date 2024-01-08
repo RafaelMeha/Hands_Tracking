@@ -27,7 +27,6 @@ def is_index_finger_up(hand_landmarks):
                                              ('PINKY_TIP', 'PINKY_DIP')])
     return index_up and other_fingers_down
 
-
 def is_call_me(hand_landmarks):
     thumb_up = is_finger_up(mp_hands.HandLandmark.THUMB_TIP, mp_hands.HandLandmark.THUMB_IP, hand_landmarks)
     pinky_up = is_finger_up(mp_hands.HandLandmark.PINKY_TIP, mp_hands.HandLandmark.PINKY_DIP, hand_landmarks)
@@ -87,7 +86,6 @@ while True:
 
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
-            # Use the custom drawing specifications
             mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS,
                                       landmark_drawing_spec,
                                       connection_drawing_spec)

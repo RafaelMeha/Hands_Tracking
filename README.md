@@ -5,7 +5,7 @@ This project is a hand gesture recognition system built using OpenCV and MediaPi
 
 ## Features
 - Real-time hand gesture recognition.
-- Supports gestures like "Index Finger Up", "Thumbs Up", "Victory", and "Full Open Hand".
+- Supports gestures like "Index Finger Up", "Thumbs Up", "Thumbs Down", and "Middle Finger".
 - Displays corresponding emojis for recognized gestures in the console.
 
 ## Technologies Used

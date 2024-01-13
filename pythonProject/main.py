@@ -64,12 +64,9 @@ def is_thumbs_down(hand_landmarks):
     return thumb_down and other_fingers_down
 
 mp_hands = mp.solutions.hands
-mp_face_mesh = mp.solutions.face_mesh
-mp_drawing = mp.solutions.drawing_utils
-
 hands = mp_hands.Hands()
-face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, min_detection_confidence=0.5)
 
+mp_drawing = mp.solutions.drawing_utils
 landmark_drawing_spec = mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=5)
 connection_drawing_spec = mp_drawing.DrawingSpec(color=(255, 0, 0), thickness=2)
 
@@ -83,7 +80,6 @@ while True:
     image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
 
     results_hands = hands.process(image)
-    results_face = face_mesh.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
@@ -92,7 +88,6 @@ while True:
             mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS,
                                       landmark_drawing_spec, connection_drawing_spec)
 
-            # Check for hand gestures and print corresponding emoji
             if is_full_open_hand(hand_landmarks):
                 print(gesture_emoji_map['full_open_hand'])
             elif is_call_me(hand_landmarks):
@@ -106,13 +101,7 @@ while True:
             elif is_thumbs_down(hand_landmarks):
                 print(gesture_emoji_map['thumbs_down'])
 
-    if results_face.multi_face_landmarks:
-        for face_landmarks in results_face.multi_face_landmarks:
-            mp_drawing.draw_landmarks(image, face_landmarks, mp_face_mesh.FACEMESH_CONTOURS,
-                                      landmark_drawing_spec=mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=3),
-                                      connection_drawing_spec=mp_drawing.DrawingSpec(color=(255, 0, 0), thickness=2))
-
-    cv2.imshow('Hands Tracking with Face Detection', image)
+    cv2.imshow('Hands Tracking', image)
 
     if cv2.waitKey(1) & 0xFF == 27:
         break
